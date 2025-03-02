@@ -28,8 +28,8 @@ A custom open-source deep research agent that integrates:
 
 ```
 
-git clone https://github.com/yourusername/custom-deep-research.git
-cd custom-deep-research
+git clone https://github.com/pmb2/openui-deep-research.git
+cd openui-deep-research
 
 ```
 
