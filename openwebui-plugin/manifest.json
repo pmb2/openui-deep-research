@@ -1,0 +1,13 @@
+{
+  "name": "deep-research-agent",
+  "version": "1.0.0",
+  "description": "Deep Research Agent plugin for Open WebUI",
+  "author": "The Backus Agency",
+  "license": "MIT",
+  "main": "index.js",
+  "endpoint": "http://backend:8000",
+  "permissions": [
+    "webRequest",
+    "storage"
+  ]
+}

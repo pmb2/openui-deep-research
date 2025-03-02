@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - PERPLEXICA_URL=http://perplexica:3000
+      - OLLAMA_HOST=http://ollama:11434
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - perplexica
+      - ollama
+
+  perplexica:
+    build:
+      context: https://github.com/ItzCrazyKns/Perplexica.git
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+
+  ollama:
+    image: ollama/ollama:latest
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+  webui:
+    image: ghcr.io/open-webui/open-webui:main
+    restart: unless-stopped
+    ports:
+      - "3001:8080"
+    environment:
+      - WEBUI_BACKEND_URL=http://backend:8000
+      - WEBUI_AUTH_ENABLED=true
+    volumes:
+      - webui_data:/app/backend/data
+    depends_on:
+      - backend
+
+volumes:
+  ollama_data:
+  webui_data:
